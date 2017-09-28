@@ -1,0 +1,27 @@
+name: ebisu_asciidoc
+version: 0.0.0
+homepage: https://github.com/patefacio/ebisu_asciidoc
+description: >
+  Support for generating an asciidoc book
+environment:
+  sdk: '>=1.8.2 <2.0.0'
+
+dependencies:
+
+# custom <ebisu_asciidoc dependencies>
+# end <ebisu_asciidoc dependencies>
+
+dev_dependencies:
+
+# custom <ebisu_asciidoc dev dependencies>
+# end <ebisu_asciidoc dev dependencies>
+
+dependency_overrides:
+# custom <ebisu_asciidoc dependency overrides>
+# end <ebisu_asciidoc dependency overrides>
+
+transformers:
+
+# custom <ebisu_asciidoc transformers>
+# end <ebisu_asciidoc transformers>
+
