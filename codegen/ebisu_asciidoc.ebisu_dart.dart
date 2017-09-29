@@ -40,8 +40,8 @@ main(List<String> args) {
     ..rootPath = _topDir
     ..doc = purpose
     ..scripts = []
-    ..testLibraries.addAll(libNames
-        .map((lib) => library('test_${lib}')..imports = [myImport(lib)]))
+    ..testLibraries.addAll(libNames.map((lib) => library('test_${lib}')
+      ..imports = [myImport(lib), 'package:ebisu/ebisu.dart']))
     ..libraries = [
       library('mixins')
         ..imports = [
@@ -68,12 +68,14 @@ main(List<String> args) {
             ..doc = ''
             ..isAbstract = true
             ..members = [],
+          class_('uses_level')..isAbstract = true,
         ],
       commonLib('book')
         ..importAndExportAll(libNames.map((i) => myImport(i)))
+        ..imports.addAll(['package:quiver/iterables.dart'])
         ..classes = [
           class_('book')
-            ..mixins = ['HasTitle']
+            ..mixins = ['UsesLevel', 'HasTitle']
             ..extend = 'DocEntity'
             ..members = [
               member('preface')..type = 'Preface',
@@ -81,17 +83,18 @@ main(List<String> args) {
                 ..type = 'List<Part>'
                 ..init = [],
               member('chapters')
-                ..type = 'List<Chapters>'
+                ..type = 'List<Chapter>'
                 ..init = [],
               member('bibliography')..type = 'Bibliography',
               member('appendix')..type = 'Appendix',
             ]
         ],
       commonLib('part')
+        ..importAndExportAll([myImport('chapter')])
         ..classes = [
           class_('part')
             ..extend = 'DocEntity'
-            ..mixins = ['HasTitle']
+            ..mixins = ['UsesLevel', 'HasTitle', 'HasMarkup']
             ..members = [
               member('chapters')
                 ..type = 'List<Chapter>'
@@ -102,12 +105,19 @@ main(List<String> args) {
         ..classes = [
           class_('section')
             ..extend = 'DocEntity'
-            ..mixins = ['HasTitle', 'HasMarkup'],
+            ..mixins = ['UsesLevel', 'HasTitle', 'HasMarkup']
+            ..members = [
+              member('sections')
+                ..type = 'List<Section>'
+                ..init = [],
+            ]
         ],
       commonLib('chapter')
+        ..importAndExportAll([myImport('section')])
         ..classes = [
           class_('chapter')
-            ..mixins = ['HasTitle']
+            ..extend = 'DocEntity'
+            ..mixins = ['UsesLevel', 'HasTitle', 'HasMarkup']
             ..members = [
               member('sections')
                 ..type = 'List<Section>'
@@ -116,15 +126,21 @@ main(List<String> args) {
         ],
       commonLib('bibliography')
         ..classes = [
-          class_('bibliography')..extend = 'DocEntity',
+          class_('bibliography')
+            ..extend = 'DocEntity'
+            ..mixins = ['HasMarkup'],
         ],
       commonLib('appendix')
         ..classes = [
-          class_('appendix')..extend = 'DocEntity',
+          class_('appendix')
+            ..extend = 'DocEntity'
+            ..mixins = ['HasMarkup'],
         ],
       commonLib('preface')
         ..classes = [
-          class_('preface')..extend = 'DocEntity',
+          class_('preface')
+            ..extend = 'DocEntity'
+            ..mixins = ['HasMarkup'],
         ]
     ];
 

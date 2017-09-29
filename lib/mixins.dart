@@ -17,6 +17,12 @@ abstract class DocEntity extends Object with Entity {
   @override
   Iterable<DocEntity> get children => new Iterable.empty();
 
+  int get level => ancestry.where((e) => e is UsesLevel).length;
+
+  String get levelText => ancestry
+      .where((e) => e is UsesLevel)
+      .fold(this is UsesLevel ? '=' : '', (elm, prev) => '${elm}=');
+
   // end <class DocEntity>
 
 }
@@ -41,6 +47,12 @@ abstract class HasMarkup {
   String get markup;
 
   // end <class HasMarkup>
+
+}
+
+abstract class UsesLevel {
+  // custom <class UsesLevel>
+  // end <class UsesLevel>
 
 }
 

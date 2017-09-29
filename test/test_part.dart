@@ -1,5 +1,6 @@
 library ebisu_asciidoc.test_part;
 
+import 'package:ebisu/ebisu.dart';
 import 'package:ebisu_asciidoc/part.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
