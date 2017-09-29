@@ -9,15 +9,28 @@ environment:
 dependencies:
 
 # custom <ebisu_asciidoc dependencies>
+
+  quiver: ">=0.21.0 <0.25.0"
+
+
 # end <ebisu_asciidoc dependencies>
 
 dev_dependencies:
 
 # custom <ebisu_asciidoc dev dependencies>
+
+  test: "^0.12.20"
+
 # end <ebisu_asciidoc dev dependencies>
 
 dependency_overrides:
 # custom <ebisu_asciidoc dependency overrides>
+  ebisu:
+    path: ../ebisu
+
+  id:
+    path: "../id"
+
 # end <ebisu_asciidoc dependency overrides>
 
 transformers:

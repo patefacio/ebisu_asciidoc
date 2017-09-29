@@ -1,5 +1,6 @@
 library ebisu_asciidoc.test_appendix;
 
+import 'package:ebisu_asciidoc/appendix.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 

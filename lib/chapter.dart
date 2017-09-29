@@ -1,9 +1,12 @@
 library ebisu_asciidoc.chapter;
 
+import 'package:ebisu/ebisu.dart';
+import 'package:ebisu_asciidoc/mixins.dart';
+
 // custom <additional imports>
 // end <additional imports>
 
-class Chapter {
+class Chapter extends Object with HasTitle {
   List<Section> sections = [];
 
   // custom <class Chapter>

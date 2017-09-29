@@ -20,7 +20,9 @@ main(List<String> args) {
 
   _topDir = dirname(dirname(here));
   myImport(i) => 'package:ebisu_asciidoc/${i}.dart';
-  commonLib(l) => library(l)..imports.add(myImport('mixins'));
+  commonLib(l) => library(l)
+    ..imports.addAll(['package:ebisu/ebisu.dart', myImport('mixins')]);
+
   final libNames = [
     'part',
     'chapter',
@@ -38,54 +40,91 @@ main(List<String> args) {
     ..rootPath = _topDir
     ..doc = purpose
     ..scripts = []
-    ..testLibraries.addAll(libNames.map((lib) => library('test_${lib}')))
+    ..testLibraries.addAll(libNames
+        .map((lib) => library('test_${lib}')..imports = [myImport(lib)]))
     ..libraries = [
       library('mixins')
+        ..imports = [
+          'dart:mirrors',
+          'package:ebisu/ebisu.dart',
+          'package:id/id.dart'
+        ]
         ..classes = [
+          class_('doc_entity')
+            ..isAbstract = true
+            ..mixins = ['Entity']
+            ..members = [member('id')..type = 'Id'],
           class_('has_title')
             ..isAbstract = true
             ..members = [
               member('title'),
             ]
+            ..customCodeBlock.tag = null,
+          class_('has_anchor')
+            ..doc = 'http://asciidoctor.org/docs/user-manual/#anchordef'
+            ..isAbstract = true
+            ..members = [],
+          class_('has_markup')
+            ..doc = ''
+            ..isAbstract = true
+            ..members = [],
         ],
-      library('book')
+      commonLib('book')
         ..importAndExportAll(libNames.map((i) => myImport(i)))
         ..classes = [
-          class_('book'),
+          class_('book')
+            ..mixins = ['HasTitle']
+            ..extend = 'DocEntity'
+            ..members = [
+              member('preface')..type = 'Preface',
+              member('parts')
+                ..type = 'List<Part>'
+                ..init = [],
+              member('chapters')
+                ..type = 'List<Chapters>'
+                ..init = [],
+              member('bibliography')..type = 'Bibliography',
+              member('appendix')..type = 'Appendix',
+            ]
         ],
-      library('part')
+      commonLib('part')
         ..classes = [
           class_('part')
+            ..extend = 'DocEntity'
+            ..mixins = ['HasTitle']
             ..members = [
               member('chapters')
                 ..type = 'List<Chapter>'
                 ..init = [],
             ],
         ],
-      library('section')
+      commonLib('section')
         ..classes = [
-          class_('section'),
+          class_('section')
+            ..extend = 'DocEntity'
+            ..mixins = ['HasTitle', 'HasMarkup'],
         ],
-      library('chapter')
+      commonLib('chapter')
         ..classes = [
           class_('chapter')
+            ..mixins = ['HasTitle']
             ..members = [
               member('sections')
                 ..type = 'List<Section>'
                 ..init = [],
             ]
         ],
-      library('bibliography')
+      commonLib('bibliography')
         ..classes = [
-          class_('bibliography'),
+          class_('bibliography')..extend = 'DocEntity',
         ],
-      library('appendix')
+      commonLib('appendix')
         ..classes = [
-          class_('appendix'),
+          class_('appendix')..extend = 'DocEntity',
         ],
-      library('preface')
+      commonLib('preface')
         ..classes = [
-          class_('appendix'),
+          class_('preface')..extend = 'DocEntity',
         ]
     ];
 

@@ -1,11 +1,14 @@
 library ebisu_asciidoc.preface;
 
+import 'package:ebisu/ebisu.dart';
+import 'package:ebisu_asciidoc/mixins.dart';
+
 // custom <additional imports>
 // end <additional imports>
 
-class Appendix {
-  // custom <class Appendix>
-  // end <class Appendix>
+class Preface extends DocEntity {
+  // custom <class Preface>
+  // end <class Preface>
 
 }
 

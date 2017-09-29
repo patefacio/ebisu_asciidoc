@@ -1,5 +1,6 @@
 library ebisu_asciidoc.test_preface;
 
+import 'package:ebisu_asciidoc/preface.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 

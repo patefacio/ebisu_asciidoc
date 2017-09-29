@@ -1,5 +1,6 @@
 library ebisu_asciidoc.test_section;
 
+import 'package:ebisu_asciidoc/section.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
@@ -18,5 +19,12 @@ void main([List<String> args]) {
     Logger.root.level = Level.OFF;
   }
 // custom <main>
+
+test('section markup', () {
+  final s = section('my_first_section');
+  print(s.markup);
+  //expect(darkMatter(section.markup), 
+});
+
 // end <main>
 }

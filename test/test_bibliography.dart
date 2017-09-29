@@ -1,5 +1,6 @@
 library ebisu_asciidoc.test_bibliography;
 
+import 'package:ebisu_asciidoc/bibliography.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
