@@ -4,6 +4,8 @@ library ebisu_asciidoc.chapter;
 // end <additional imports>
 
 class Chapter {
+  List<Section> sections = [];
+
   // custom <class Chapter>
   // end <class Chapter>
 

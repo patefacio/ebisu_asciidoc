@@ -16,11 +16,19 @@ main(List<String> args) {
   Logger.root.level = Level.OFF;
   useDartFormatter = true;
   String here = absolute(Platform.script.toFilePath());
-
-  _topDir = dirname(dirname(here));
   final purpose = 'Support for generating an asciidoc book';
 
-  final libNames = ['part', 'chapter', 'bibliography', 'appendix', 'preface'];
+  _topDir = dirname(dirname(here));
+  myImport(i) => 'package:ebisu_asciidoc/${i}.dart';
+  commonLib(l) => library(l)..imports.add(myImport('mixins'));
+  final libNames = [
+    'part',
+    'chapter',
+    'section',
+    'bibliography',
+    'appendix',
+    'preface'
+  ];
 
   System ebisuAsciidoc = system('ebisu_asciidoc')
     ..license = 'boost'
@@ -32,9 +40,16 @@ main(List<String> args) {
     ..scripts = []
     ..testLibraries.addAll(libNames.map((lib) => library('test_${lib}')))
     ..libraries = [
+      library('mixins')
+        ..classes = [
+          class_('has_title')
+            ..isAbstract = true
+            ..members = [
+              member('title'),
+            ]
+        ],
       library('book')
-        ..importAndExportAll(
-            libNames.map((i) => 'package:ebisu_asciidoc/${i}.dart'))
+        ..importAndExportAll(libNames.map((i) => myImport(i)))
         ..classes = [
           class_('book'),
         ],
@@ -42,12 +57,23 @@ main(List<String> args) {
         ..classes = [
           class_('part')
             ..members = [
-              member('chapters')..type = 'List<Chapter>',
+              member('chapters')
+                ..type = 'List<Chapter>'
+                ..init = [],
             ],
+        ],
+      library('section')
+        ..classes = [
+          class_('section'),
         ],
       library('chapter')
         ..classes = [
-          class_('chapter'),
+          class_('chapter')
+            ..members = [
+              member('sections')
+                ..type = 'List<Section>'
+                ..init = [],
+            ]
         ],
       library('bibliography')
         ..classes = [
