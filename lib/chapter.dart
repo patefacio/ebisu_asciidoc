@@ -18,11 +18,16 @@ class Chapter extends DocEntity with UsesLevel, HasTitle, HasMarkup {
     this.title = title ?? this.id.title;
   }
 
-  String get markup => brCompact([
-        '[${id.snake}]',
-        '$levelText $title',
+  String get markup => br([
+        brCompact([
+          '\n<<<',
+          /// chapter anchor
+          idAnchor,
+          '$levelText $title',
+          "\n'''"
+        ]),
         codeBlock('top chapter ${id.snake}'),
-        brCompact(sections.map((s) => s.markup)),
+        br(sections.map((s) => s.markup)),
         codeBlock('bottom chapter ${id.snake}'),
       ]);
 

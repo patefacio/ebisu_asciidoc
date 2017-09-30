@@ -15,11 +15,14 @@ class Section extends DocEntity with UsesLevel, HasTitle, HasMarkup {
     this.title = title ?? this.id.title;
   }
 
-  String get markup => brCompact([
-        '[${id.snake}]',
-        '$levelText $title',
+  String get markup => br([
+        brCompact([
+          /// section anchor
+          idAnchor,
+          '$levelText $title'
+        ]),
         codeBlock('top section ${id.snake}'),
-        brCompact(sections.map((s) => s.markup)),
+        br(sections.map((s) => s.markup)),
         codeBlock('bottom section ${id.snake}'),
       ]);
 

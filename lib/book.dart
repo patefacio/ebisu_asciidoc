@@ -21,6 +21,7 @@ export 'package:ebisu_asciidoc/section.dart';
 // end <additional imports>
 
 class Book extends DocEntity with UsesLevel, HasTitle {
+  String author;
   Preface preface;
   List<Part> parts = [];
   List<Chapter> chapters = [];
@@ -33,13 +34,22 @@ class Book extends DocEntity with UsesLevel, HasTitle {
     this.title = title ?? this.id.title;
   }
 
-  String get markup => brCompact([
-        '[${id.snake}]',
-        '$levelText $title',
+  String get markup => br([
+        brCompact([
+          /// book anchor
+          idAnchor,
+          '$levelText $title',
+          ':Author: ${author ?? "The Common Man"}',
+          ':toc:',
+          ':doctype: book',
+          ':source-highlighter: coderay',
+          ':listing-caption: Listing',
+          ':numbered:',
+        ]),
         codeBlock('top book ${id.snake}'),
         preface?.markup,
-        brCompact(parts.map((p) => p.markup)),
-        brCompact(chapters.map((c) => c.markup)),
+        br(parts.map((p) => p.markup)),
+        br(chapters.map((c) => c.markup)),
         bibliography?.markup,
         appendix?.markup,
         codeBlock('bottom book ${id.snake}'),
@@ -47,11 +57,11 @@ class Book extends DocEntity with UsesLevel, HasTitle {
 
   @override
   Iterable<DocEntity> get children => concat([
-        preface == null? []:[preface],
+        preface == null ? [] : preface,
         parts,
         chapters,
-        bibliography == null? []:[bibliography],
-        appendix == null? []: [appendix]
+        bibliography == null ? [] : [bibliography],
+        appendix == null ? [] : [appendix]
       ]);
 
   // end <class Book>

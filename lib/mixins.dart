@@ -23,6 +23,8 @@ abstract class DocEntity extends Object with Entity {
       .where((e) => e is UsesLevel)
       .fold(this is UsesLevel ? '=' : '', (elm, prev) => '${elm}=');
 
+  String get idAnchor => '[[${id.snake}]]';
+
   // end <class DocEntity>
 
 }

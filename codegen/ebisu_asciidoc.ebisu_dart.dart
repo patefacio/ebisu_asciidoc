@@ -78,6 +78,7 @@ main(List<String> args) {
             ..mixins = ['UsesLevel', 'HasTitle']
             ..extend = 'DocEntity'
             ..members = [
+              member('author'),
               member('preface')..type = 'Preface',
               member('parts')
                 ..type = 'List<Part>'

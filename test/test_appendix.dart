@@ -37,7 +37,6 @@ void main([List<String> args]) {
 // custom <bottom book my_book>
 // end <bottom book my_book>
     '''));
-
   });
 
 // end <main>

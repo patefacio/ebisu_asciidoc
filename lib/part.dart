@@ -18,11 +18,19 @@ class Part extends DocEntity with UsesLevel, HasTitle, HasMarkup {
     this.title = title ?? this.id.title;
   }
 
-  String get markup => brCompact([
-        '[${id.snake}]',
-        '$levelText $title',
+  String get markup => br([
+        brCompact([
+          ':numbered!:',
+
+          /// part anchor
+          '\n<<<',
+          idAnchor,
+          '$levelText $title',
+          "\n'''",
+          ':numbered:',
+        ]),
         codeBlock('top part ${id.snake}'),
-        brCompact(chapters.map((s) => s.markup)),
+        br(chapters.map((s) => s.markup)),
         codeBlock('bottom part ${id.snake}'),
       ]);
 
