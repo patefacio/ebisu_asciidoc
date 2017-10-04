@@ -6,7 +6,7 @@ import 'package:ebisu_asciidoc/mixins.dart';
 // custom <additional imports>
 // end <additional imports>
 
-class Preface extends DocEntity with HasMarkup {
+class Preface extends DocEntity {
   // custom <class Preface>
 
   Preface() : super('preface');
@@ -14,7 +14,7 @@ class Preface extends DocEntity with HasMarkup {
   String get markup => brCompact([
         /// section anchor
         idAnchor,
-        '$levelText Preface'
+        codeBlock(id.snake),
       ]);
 
   // end <class Preface>

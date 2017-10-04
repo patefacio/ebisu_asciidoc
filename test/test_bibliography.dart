@@ -20,5 +20,17 @@ void main([List<String> args]) {
     Logger.root.level = Level.OFF;
   }
 // custom <main>
+
+  test('bibliography markup', () {
+    final a = bibliography()
+      ..setAsRoot();
+
+    expect(darkMatter(a.markup), darkMatter('''
+[[bibliography]]
+// custom <bibliography>
+// end <bibliography>
+    '''));
+  });
+
 // end <main>
 }

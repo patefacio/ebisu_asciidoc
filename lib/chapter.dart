@@ -9,7 +9,7 @@ export 'package:ebisu_asciidoc/section.dart';
 // custom <additional imports>
 // end <additional imports>
 
-class Chapter extends DocEntity with UsesLevel, HasTitle, HasMarkup {
+class Chapter extends DocEntity with UsesLevel, HasTitle {
   List<Section> sections = [];
 
   // custom <class Chapter>
@@ -28,7 +28,7 @@ class Chapter extends DocEntity with UsesLevel, HasTitle, HasMarkup {
           "\n'''"
         ]),
         codeBlock('top chapter ${id.snake}'),
-        br(sections.map((s) => s.markup)),
+        children.map((child) => 'include::${child.fileName}[]'),
         codeBlock('bottom chapter ${id.snake}'),
       ]);
 

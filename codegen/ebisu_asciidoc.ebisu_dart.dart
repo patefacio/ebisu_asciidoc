@@ -52,8 +52,11 @@ main(List<String> args) {
         ..classes = [
           class_('doc_entity')
             ..isAbstract = true
-            ..mixins = ['Entity']
-            ..members = [member('id')..type = 'Id'],
+            ..mixins = ['Entity', 'HasMarkup']
+            ..members = [
+              member('id')..type = 'Id',
+              member('number'),
+            ],
           class_('has_title')
             ..isAbstract = true
             ..members = [
@@ -71,8 +74,10 @@ main(List<String> args) {
           class_('uses_level')..isAbstract = true,
         ],
       commonLib('book')
+        ..includesLogger = true
         ..importAndExportAll(libNames.map((i) => myImport(i)))
-        ..imports.addAll(['package:quiver/iterables.dart'])
+        ..imports
+            .addAll(['package:quiver/iterables.dart', 'package:path/path.dart'])
         ..classes = [
           class_('book')
             ..mixins = ['UsesLevel', 'HasTitle']
@@ -96,7 +101,7 @@ main(List<String> args) {
         ..classes = [
           class_('part')
             ..extend = 'DocEntity'
-            ..mixins = ['UsesLevel', 'HasTitle', 'HasMarkup']
+            ..mixins = ['UsesLevel', 'HasTitle']
             ..members = [
               member('chapters')
                 ..type = 'List<Chapter>'
@@ -107,7 +112,7 @@ main(List<String> args) {
         ..classes = [
           class_('section')
             ..extend = 'DocEntity'
-            ..mixins = ['UsesLevel', 'HasTitle', 'HasMarkup']
+            ..mixins = ['UsesLevel', 'HasTitle']
             ..members = [
               member('sections')
                 ..type = 'List<Section>'
@@ -119,7 +124,7 @@ main(List<String> args) {
         ..classes = [
           class_('chapter')
             ..extend = 'DocEntity'
-            ..mixins = ['UsesLevel', 'HasTitle', 'HasMarkup']
+            ..mixins = ['UsesLevel', 'HasTitle']
             ..members = [
               member('sections')
                 ..type = 'List<Section>'
@@ -130,19 +135,19 @@ main(List<String> args) {
         ..classes = [
           class_('bibliography')
             ..extend = 'DocEntity'
-            ..mixins = ['HasMarkup'],
+            ..mixins = [],
         ],
       commonLib('appendix')
         ..classes = [
           class_('appendix')
             ..extend = 'DocEntity'
-            ..mixins = ['HasMarkup'],
+            ..mixins = [],
         ],
       commonLib('preface')
         ..classes = [
           class_('preface')
             ..extend = 'DocEntity'
-            ..mixins = ['HasMarkup'],
+            ..mixins = [],
         ]
     ];
 

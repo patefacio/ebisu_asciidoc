@@ -25,27 +25,13 @@ void main([List<String> args]) {
 // custom <main>
 
   test('appendix markup', () {
-    final b = book('my_book', './test/')
-      ..appendix = appendix()
+    final a = appendix()
       ..setAsRoot();
 
-    expect(darkMatter(b.markup), darkMatter('''
-[[my_book]]
-= My Book
-:Author: The Common Man
-:toc:
-:doctype: book
-:source-highlighter: coderay
-:listing-caption: Listing
-:numbered:
-
-// custom <top book my_book>
-// end <top book my_book>
-
-[appendix]
-
-// custom <bottom book my_book>
-// end <bottom book my_book>
+    expect(darkMatter(a.markup), darkMatter('''
+[[appendix]]
+// custom <appendix>
+// end <appendix>
     '''));
   });
 

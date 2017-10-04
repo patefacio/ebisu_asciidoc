@@ -6,7 +6,7 @@ import 'package:ebisu_asciidoc/mixins.dart';
 // custom <additional imports>
 // end <additional imports>
 
-class Section extends DocEntity with UsesLevel, HasTitle, HasMarkup {
+class Section extends DocEntity with UsesLevel, HasTitle {
   List<Section> sections = [];
 
   // custom <class Section>
@@ -22,7 +22,7 @@ class Section extends DocEntity with UsesLevel, HasTitle, HasMarkup {
           '$levelText $title'
         ]),
         codeBlock('top section ${id.snake}'),
-        br(sections.map((s) => s.markup)),
+        children.map((child) => 'include::${child.fileName}[]'),
         codeBlock('bottom section ${id.snake}'),
       ]);
 

@@ -9,7 +9,7 @@ export 'package:ebisu_asciidoc/chapter.dart';
 // custom <additional imports>
 // end <additional imports>
 
-class Part extends DocEntity with UsesLevel, HasTitle, HasMarkup {
+class Part extends DocEntity with UsesLevel, HasTitle {
   List<Chapter> chapters = [];
 
   // custom <class Part>
@@ -30,7 +30,7 @@ class Part extends DocEntity with UsesLevel, HasTitle, HasMarkup {
           ':numbered:',
         ]),
         codeBlock('top part ${id.snake}'),
-        br(chapters.map((s) => s.markup)),
+        children.map((child) => 'include::${child.fileName}[]'),
         codeBlock('bottom part ${id.snake}'),
       ]);
 

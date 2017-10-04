@@ -25,28 +25,13 @@ void main([List<String> args]) {
 // custom <main>
 
   test('preface markup', () {
-    final b = book('my_book', './test_preface')
-      ..preface = preface()
+    final p = preface()
       ..setAsRoot();
 
-    expect(darkMatter(b.markup), darkMatter('''
-[[my_book]]
-= My Book
-:Author: The Common Man
-:toc:
-:doctype: book
-:source-highlighter: coderay
-:listing-caption: Listing
-:numbered:
-
-// custom <top book my_book>
-// end <top book my_book>
-
+    expect(darkMatter(p.markup), darkMatter('''
 [[preface]]
-= Preface
-
-// custom <bottom book my_book>
-// end <bottom book my_book>
+// custom <preface>
+// end <preface>
     '''));
   });
 

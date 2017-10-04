@@ -8,6 +8,8 @@ import 'package:ebisu_asciidoc/mixins.dart';
 import 'package:ebisu_asciidoc/part.dart';
 import 'package:ebisu_asciidoc/preface.dart';
 import 'package:ebisu_asciidoc/section.dart';
+import 'package:logging/logging.dart';
+import 'package:path/path.dart';
 import 'package:quiver/iterables.dart';
 
 export 'package:ebisu_asciidoc/appendix.dart';
@@ -19,6 +21,8 @@ export 'package:ebisu_asciidoc/section.dart';
 
 // custom <additional imports>
 // end <additional imports>
+
+final Logger _logger = new Logger('book');
 
 class Book extends DocEntity with UsesLevel, HasTitle {
   String rootPath;
@@ -35,6 +39,32 @@ class Book extends DocEntity with UsesLevel, HasTitle {
     this.title = title ?? this.id.title;
   }
 
+  @override
+  onChildrenOwnershipEstablished() {
+    /// take opportunity to number all parts
+    recursiveNumber(DocEntity entity) {
+      enumerate(entity.children).forEach((IndexedValue iv) {
+        DocEntity child = iv.value;
+        child.number = entity.number + '.${iv.index + 1}';
+        _logger.info('${child.id} -> ${child.fileName}');
+        recursiveNumber(child);
+      });
+    }
+
+    number = id.snake;
+    recursiveNumber(this);
+  }
+
+  generateBook() {
+    recursiveGenerate(DocEntity entity) {
+      final fileName = join(rootPath, entity.fileName);
+      mergeWithFile(entity.markup, fileName);
+      entity.children.forEach((child) => recursiveGenerate(child));
+    }
+
+    recursiveGenerate(this);
+  }
+
   String get markup => br([
         brCompact([
           /// book anchor
@@ -48,11 +78,7 @@ class Book extends DocEntity with UsesLevel, HasTitle {
           ':numbered:',
         ]),
         codeBlock('top book ${id.snake}'),
-        preface?.markup,
-        br(parts.map((p) => p.markup)),
-        br(chapters.map((c) => c.markup)),
-        bibliography?.markup,
-        appendix?.markup,
+        children.map((child) => 'include::${child.fileName}[]'),
         codeBlock('bottom book ${id.snake}'),
       ]);
 

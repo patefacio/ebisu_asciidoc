@@ -6,17 +6,14 @@ import 'package:ebisu_asciidoc/mixins.dart';
 // custom <additional imports>
 // end <additional imports>
 
-class Appendix extends DocEntity with HasMarkup {
+class Appendix extends DocEntity {
   // custom <class Appendix>
 
   Appendix() : super('appendix');
-
   String get markup => brCompact([
-        '[appendix]',
+        idAnchor,
+        codeBlock(id.snake),
       ]);
-
-  @override
-  Iterable<DocEntity> get children => new Iterable.empty();
 
   // end <class Appendix>
 

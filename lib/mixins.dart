@@ -7,8 +7,9 @@ import 'package:id/id.dart';
 // custom <additional imports>
 // end <additional imports>
 
-abstract class DocEntity extends Object with Entity {
+abstract class DocEntity extends Object with Entity, HasMarkup {
   Id id;
+  String number;
 
   // custom <class DocEntity>
 
@@ -22,6 +23,9 @@ abstract class DocEntity extends Object with Entity {
   String get levelText => ancestry
       .where((e) => e is UsesLevel)
       .fold(this is UsesLevel ? '=' : '', (elm, prev) => '${elm}=');
+
+  String get fileName =>
+      '${number}_${this.runtimeType.toString().toLowerCase()}_${id.snake}.asciidoc';
 
   String get idAnchor => '[[${id.snake}]]';
 

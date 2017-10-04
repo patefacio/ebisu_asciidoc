@@ -20,5 +20,28 @@ void main([List<String> args]) {
     Logger.root.level = Level.OFF;
   }
 // custom <main>
+
+  test('part markup', () {
+    final p = part('my_part')
+      ..setAsRoot();
+
+    expect(darkMatter(p.markup), darkMatter('''
+:numbered!:
+
+<<<
+[[my_part]]
+= My Part
+
+\'\'\'
+:numbered:
+
+// custom <top part my_part>
+// end <top part my_part>
+
+// custom <bottom part my_part>
+// end <bottom part my_part>
+    '''));
+  });
+
 // end <main>
 }
