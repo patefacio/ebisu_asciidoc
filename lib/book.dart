@@ -21,6 +21,7 @@ export 'package:ebisu_asciidoc/section.dart';
 // end <additional imports>
 
 class Book extends DocEntity with UsesLevel, HasTitle {
+  String rootPath;
   String author;
   Preface preface;
   List<Part> parts = [];
@@ -30,7 +31,7 @@ class Book extends DocEntity with UsesLevel, HasTitle {
 
   // custom <class Book>
 
-  Book(dynamic id, [String title]) : super(id) {
+  Book(dynamic id, this.rootPath, [String title]) : super(id) {
     this.title = title ?? this.id.title;
   }
 
@@ -57,7 +58,7 @@ class Book extends DocEntity with UsesLevel, HasTitle {
 
   @override
   Iterable<DocEntity> get children => concat([
-        preface == null ? [] : preface,
+        preface == null ? [] : [preface],
         parts,
         chapters,
         bibliography == null ? [] : [bibliography],
@@ -70,6 +71,7 @@ class Book extends DocEntity with UsesLevel, HasTitle {
 
 // custom <library book>
 
-Book book(dynamic id, [String title]) => new Book(id, title);
+Book book(dynamic id, String rootPath, [String title]) =>
+    new Book(id, rootPath, title);
 
 // end <library book>

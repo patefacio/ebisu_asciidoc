@@ -12,11 +12,10 @@ class Preface extends DocEntity with HasMarkup {
   Preface() : super('preface');
 
   String get markup => brCompact([
-        '[preface]',
+        /// section anchor
+        idAnchor,
+        '$levelText Preface'
       ]);
-
-  @override
-  Iterable<DocEntity> get children => new Iterable.empty();
 
   // end <class Preface>
 

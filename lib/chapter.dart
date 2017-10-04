@@ -21,6 +21,7 @@ class Chapter extends DocEntity with UsesLevel, HasTitle, HasMarkup {
   String get markup => br([
         brCompact([
           '\n<<<',
+
           /// chapter anchor
           idAnchor,
           '$levelText $title',

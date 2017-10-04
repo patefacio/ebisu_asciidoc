@@ -29,24 +29,37 @@ void main([List<String> args]) {
       ..setAsRoot();
 
     expect(darkMatter(c.markup), darkMatter('''
-[my_first_chapter]
+
+<<<
+[[my_first_chapter]]
 = My First Chapter
+
+\'\'\'
+
 // custom <top chapter my_first_chapter>
 // end <top chapter my_first_chapter>
-[next_section]
+
+[[next_section]]
 == Next Section
+
 // custom <top section next_section>
 // end <top section next_section>
-[another_section]
+
+[[another_section]]
 === Another Section
+
 // custom <top section another_section>
 // end <top section another_section>
+
 // custom <bottom section another_section>
 // end <bottom section another_section>
+
 // custom <bottom section next_section>
 // end <bottom section next_section>
+
 // custom <bottom chapter my_first_chapter>
 // end <bottom chapter my_first_chapter>
+
 
     '''));
   });

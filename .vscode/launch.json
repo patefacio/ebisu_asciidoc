@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Dart command line",
+            "name": "test preface",
             "type": "dart-cli",
             "request": "launch",
-            "program": "${workspaceRoot}/bin/main.dart"
+            "program": "${workspaceRoot}/test/test_preface.dart"
         }
     ]
 }
