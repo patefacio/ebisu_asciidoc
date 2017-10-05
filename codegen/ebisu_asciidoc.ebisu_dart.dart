@@ -76,9 +76,39 @@ main(List<String> args) {
       commonLib('book')
         ..includesLogger = true
         ..importAndExportAll(libNames.map((i) => myImport(i)))
-        ..imports
-            .addAll(['package:quiver/iterables.dart', 'package:path/path.dart'])
+        ..imports.addAll([
+          'package:quiver/iterables.dart',
+          'package:path/path.dart',
+          'package:id/id.dart',
+          'dart:io'
+        ])
+        ..enums = [
+          enum_('doc_entity_type')
+            ..values = [
+              'appendix',
+              'bibliography',
+              'chapter',
+              'part',
+              'preface',
+              'section',
+            ]
+            ..requiresClass = true
+            ..isSnakeString = true
+            ..hasJsonSupport = true
+            ..libraryScopedValuesCase = shoutCase
+        ]
         ..classes = [
+          class_('parsed_doc_entity')
+            ..doc = 'Files are read from [rootPath] and parsed for refactors'
+            ..hasOpEquals = true
+            ..isImmutable = true
+            ..hasJsonToString = true
+            ..members = [
+              member('file_name')..doc = 'Basename of file read from disk',
+              member('number')..doc = 'Dotted number of file',
+              member('doc_entity_type')..doc = 'Type of entity encoded in name'..type = 'DocEntityType',
+              member('id')..doc = 'Snake case name of [DocEntity]',
+            ],
           class_('book')
             ..mixins = ['UsesLevel', 'HasTitle']
             ..extend = 'DocEntity'
@@ -94,6 +124,11 @@ main(List<String> args) {
                 ..init = [],
               member('bibliography')..type = 'Bibliography',
               member('appendix')..type = 'Appendix',
+              member('read_entities')
+                ..doc =
+                    'Mapping of snake case names of DocEntities read from the file system to their number'
+                ..type = 'Map<String,ParsedDocEntity>'
+                ..init = {}
             ]
         ],
       commonLib('part')

@@ -25,8 +25,7 @@ void main([List<String> args]) {
 // custom <main>
 
   test('preface markup', () {
-    final p = preface()
-      ..setAsRoot();
+    final p = preface()..setAsRoot();
 
     expect(darkMatter(p.markup), darkMatter('''
 [[preface]]

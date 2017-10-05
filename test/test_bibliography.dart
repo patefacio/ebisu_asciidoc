@@ -22,8 +22,7 @@ void main([List<String> args]) {
 // custom <main>
 
   test('bibliography markup', () {
-    final a = bibliography()
-      ..setAsRoot();
+    final a = bibliography()..setAsRoot();
 
     expect(darkMatter(a.markup), darkMatter('''
 [[bibliography]]

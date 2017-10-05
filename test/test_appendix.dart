@@ -25,8 +25,7 @@ void main([List<String> args]) {
 // custom <main>
 
   test('appendix markup', () {
-    final a = appendix()
-      ..setAsRoot();
+    final a = appendix()..setAsRoot();
 
     expect(darkMatter(a.markup), darkMatter('''
 [[appendix]]

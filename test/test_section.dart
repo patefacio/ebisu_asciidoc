@@ -22,8 +22,7 @@ void main([List<String> args]) {
 // custom <main>
 
   test('section markup', () {
-    final s = section('my_first_section')
-      ..setAsRoot();
+    final s = section('my_first_section')..setAsRoot();
 
     expect(darkMatter(s.markup), darkMatter('''
 [[my_first_section]]

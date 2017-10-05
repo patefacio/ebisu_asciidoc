@@ -11,9 +11,9 @@ class Bibliography extends DocEntity {
 
   Bibliography() : super('bibliography');
   String get markup => brCompact([
-    idAnchor,
-    codeBlock(id.snake),
-    ]);
+        idAnchor,
+        codeBlock(id.snake),
+      ]);
 
   // end <class Bibliography>
 

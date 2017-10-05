@@ -22,8 +22,7 @@ void main([List<String> args]) {
 // custom <main>
 
   test('part markup', () {
-    final p = part('my_part')
-      ..setAsRoot();
+    final p = part('my_part')..setAsRoot();
 
     expect(darkMatter(p.markup), darkMatter('''
 :numbered!:
