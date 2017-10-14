@@ -257,7 +257,7 @@ You can do better!''';
       if (parsedDocEntity != null) {
         assert(parsedDocEntity != null);
         final ParsedDocEntity currentEntity = readEntities[parsedDocEntity.id];
-        if (currentEntity != parsedDocEntity) {
+        if (currentEntity != null && currentEntity != parsedDocEntity) {
           final from = join(rootPath, currentEntity.fileName);
           final to = join(rootPath, parsedDocEntity.fileName);
           print('''
